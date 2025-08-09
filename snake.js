@@ -2,7 +2,6 @@ const gameBoard = document.querySelector("#gameBoard");
 const context = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const resetButton = document.querySelector("resetButton");
-const boardStyles = window.getComputedStyle(gameBoard);
 const boardBackground = "white";
 const snakeColor = "lightgreen";
 const snakeBorder = "black";
@@ -23,24 +22,33 @@ let snake = [
 
 window.addEventListener("keydown", changeDirection);
 
-resetGame(click);
+//resetGame(click);
 gameStart();
+createFood();
+drawFood();
 
 function gameStart(){};
 function nextTick(){};
 function clearBoard(){};
 function createFood(){
     function randomFood(min, max){
-        const randNum = Math.round((Math.random() * (max - min) + min) / unitsize) * unitsize;
+        const randNum = Math.round((Math.random() * (max - min) + min) / unitSize) * unitSize;
         return randNum;
     }
 
-    foodX = randomFood(0, boardStyles.width - unitSize);
-    foody = randomFood(0, boardStyles.width - unitSize);
+    foodX = randomFood(0, gameBoard.width - unitSize);
+    foodY = randomFood(0, gameBoard.height - unitSize);
+
 };
-function drawFood(){};
+function drawFood(){
+    context.fillStyle = foodColor;
+    context.fillRect(foodX, foodY, unitSize, unitSize);
+};
 function moveSnake(){};
-function drawSnake(){};
+function drawSnake(){
+    snake.fillStyle = snakeColor;
+    snake.fillRect = snake;
+};
 function changeDirection(){};
 function checkGameOver(){};
 function resetGame(){};
