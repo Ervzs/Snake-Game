@@ -121,6 +121,16 @@ function drawSnake(){
 function changeDirection(event){
     const keyPressed = event.keyCode;
     console.log(keyPressed);
+    const UP = 87;
+    const LEFT = 65;
+    const DOWN = 83;
+    const RIGHT = 68;
+    const arrowL = 37;
+    const arrowR = 39;
+    const arrowU = 38;
+    const arrowD = 40;
+
+    
 };
 function checkGameOver(){};
 function resetGame(){};
