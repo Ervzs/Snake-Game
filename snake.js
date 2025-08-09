@@ -99,8 +99,12 @@ function moveSnake(){
     snakePart.x = ((snakePart.x % gameBoard.width) + gameBoard.width) % gameBoard.width;
     snakePart.y = ((snakePart.y % gameBoard.height) + gameBoard.height) % gameBoard.height;
     })
-    if(false){
 
+    // if food is eaten
+    if(head.x == foodX && head.y == foodY){
+        score += 1;
+        scoreText.textContent = score;
+        createFood();
     }
     else{
         snake.pop();
@@ -114,6 +118,9 @@ function drawSnake(){
         context.strokeRect(snakePart.x, snakePart.y, unitSize, unitSize);
     })
 };
-function changeDirection(){};
+function changeDirection(event){
+    const keyPressed = event.keyCode;
+    console.log(keyPressed);
+};
 function checkGameOver(){};
 function resetGame(){};
