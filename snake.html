@@ -8,15 +8,18 @@
 </head>
 <body>
     <div id="gameContainer">
+        <h1>Snake Game</h1>
         <canvas id="gameBoard" width="500" height="500"></canvas>
         <div id="scoreText">0</div>
         <div id="modal" class="modal">
             <div class="modal-content">
-                <p>This is a modal!</p>
-                <button id="closeModalBtn">Close</button>
+                <p>GAME OVER!</p>
+                <div id="scoreText">Score: </div>
+                <button id="closeModalBtn" onclick="resetGame('reset')">Reset</button>
             </div>
         </div>
-        <button id="resetButton" onclick="resetGame('click')">RESTART</button>
+        <button id="pauseButton" onclick="pauseGame('true')">PAUSE</button>
+        <button id="playButton" onclick="playGame('true')">PLAY</button>
     </div>
     <script src="snake.js"></script>
 </body>

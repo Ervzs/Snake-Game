@@ -3,7 +3,10 @@ const context = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const resetButton = document.querySelector("resetButton");
 const modal = document.getElementById('modal');
+const modalScoreText = modal.querySelector('#scoreText')
 const closeBtn = document.getElementById('closeModalBtn');
+const pauseButton = document.querySelector('#pauseButton');
+const playButton = document.querySelector('#playButton');
 const boardBackground = "white";
 const snakeColor = "green";
 const snakeBorder = "black";
@@ -25,7 +28,6 @@ let head; // Used for checkGameOver
 
 window.addEventListener("keydown", changeDirection);
 
-//resetGame(click);
 gameStart();
 
 
@@ -35,7 +37,7 @@ function gameStart(){
     createFood();
     nextTick();
     
-};
+};  
 
 function drawGrid(){ // For visuals
     context.strokeStyle = "white"; 
@@ -98,9 +100,10 @@ function moveSnake(){
     head = {x: snake[0].x + xVelocity, y: snake[0].y + yVelocity};
     snake.unshift(head);
     snake.forEach(snakePart => {
+    
+    // so it can wrap to the other side
     snakePart.x = ((snakePart.x % gameBoard.width) + gameBoard.width) % gameBoard.width;
     snakePart.y = ((snakePart.y % gameBoard.height) + gameBoard.height) % gameBoard.height;
-
     })
 
     // if food is eaten
@@ -123,7 +126,6 @@ function drawSnake(){
 };
 function changeDirection(event){
     const keyPressed = event.keyCode;
-    console.log(keyPressed);
     const UP = 87;
     const LEFT = 65;
     const DOWN = 83;
@@ -163,13 +165,38 @@ function checkGameOver(){
     if (collision == true){
         modal.style.display = 'block';
         running = false;
+        modalScoreText.textContent = 'Score: ' + score;
         
     }
 };
+
 function resetGame(clicked){
-    if (clicked == 'click'){
-        clearBoard();
+    if (clicked == 'reset'){
         score = 0;
+        xVelocity = unitSize;
+        yVelocity = 0;
+        snake = [
+                {x:unitSize * 4, y:0}, // Head
+                {x:unitSize * 3, y:0},
+                {x:unitSize * 2, y:0},
+                {x:unitSize, y:0},
+                {x:0, y:0}
+                ];
+        modal.style.display = 'none';
+        gameStart();
+        
+    }
+};
+
+function pauseGame(paused){
+    if (paused == 'true'){
         running = false;
+    }
+};
+
+function playGame(play){
+    if (play == 'true'){
+        running = true;
+        nextTick();
     }
 };
