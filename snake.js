@@ -2,6 +2,8 @@ const gameBoard = document.querySelector("#gameBoard");
 const context = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const resetButton = document.querySelector("resetButton");
+const modal = document.getElementById('modal');
+const closeBtn = document.getElementById('closeModalBtn');
 const boardBackground = "white";
 const snakeColor = "green";
 const snakeBorder = "black";
@@ -19,6 +21,7 @@ let snake = [
     {x:unitSize, y:0},
     {x:0, y:0} // tail
 ]
+let head; // Used for checkGameOver
 
 window.addEventListener("keydown", changeDirection);
 
@@ -92,7 +95,7 @@ function drawFood(){
     context.fillRect(foodX, foodY, unitSize, unitSize);
 };
 function moveSnake(){
-    const head = {x: snake[0].x + xVelocity, y: snake[0].y + yVelocity};
+    head = {x: snake[0].x + xVelocity, y: snake[0].y + yVelocity};
     snake.unshift(head);
     snake.forEach(snakePart => {
     snakePart.x = ((snakePart.x % gameBoard.width) + gameBoard.width) % gameBoard.width;
@@ -154,5 +157,19 @@ function changeDirection(event){
             break;
     }
 };
-function checkGameOver(){};
-function resetGame(){};
+function checkGameOver(){
+    const collision = snake.slice(1).some(body => body.x === head.x && body.y === head.y);
+    //console.log(collision);
+    if (collision == true){
+        modal.style.display = 'block';
+        running = false;
+        
+    }
+};
+function resetGame(clicked){
+    if (clicked == 'click'){
+        clearBoard();
+        score = 0;
+        running = false;
+    }
+};
