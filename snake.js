@@ -30,7 +30,6 @@ function gameStart(){
     running = true;
     scoreText.textContent = score;
     createFood();
-    drawFood();
     nextTick();
     
 };
@@ -98,6 +97,7 @@ function moveSnake(){
     snake.forEach(snakePart => {
     snakePart.x = ((snakePart.x % gameBoard.width) + gameBoard.width) % gameBoard.width;
     snakePart.y = ((snakePart.y % gameBoard.height) + gameBoard.height) % gameBoard.height;
+
     })
 
     // if food is eaten
@@ -130,7 +130,29 @@ function changeDirection(event){
     const arrowU = 38;
     const arrowD = 40;
 
-    
+    const goingUP = (yVelocity == -unitSize);
+    const goingDOWN = (yVelocity == unitSize);
+    const goingRIGHT = (xVelocity == unitSize);
+    const goingLEFT = (xVelocity == -unitSize);
+
+    switch(true){
+        case((keyPressed == LEFT || keyPressed == arrowL) && !goingRIGHT):
+            xVelocity = -unitSize;
+            yVelocity = 0;
+            break;
+        case((keyPressed == UP || keyPressed == arrowU) && !goingDOWN):
+            xVelocity = 0;
+            yVelocity = -unitSize;
+            break;
+        case((keyPressed == RIGHT || keyPressed == arrowR) && !goingLEFT):
+            xVelocity = unitSize;
+            yVelocity = 0;
+            break;
+        case((keyPressed == DOWN || keyPressed == arrowD) && !goingUP):
+            xVelocity = 0;
+            yVelocity = unitSize;
+            break;
+    }
 };
 function checkGameOver(){};
 function resetGame(){};
